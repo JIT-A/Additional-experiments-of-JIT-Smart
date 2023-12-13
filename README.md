@@ -41,6 +41,14 @@ A: We compared the performance of JIT-Smart and JITFine with or without focal-lo
 
 > "↑" indicates the larger the better; "↓" indicates the smaller the better.  
 
+### focal loss
+$focal &ensp; loss = -\alpha_{t}(1-p_{t})^{\gamma}log(p_{t})$  
+where $p_{t}$ is the predicted probability of $t$ class (there are only two classes in JIT-DP, so $t\in[0,1]$), $\alpha _{t}\in[0,1]$, $\gamma\in[0, 5]$. According to previous experience [1], the performance is the best when they set: $\alpha _{t}=0.25$, $\gamma=2.0$. Since the purpose of focal loss is the same as ours, which is to solve the class imbalance issue, we adopt the default optimal parameters. The balance factor $\alpha _{t}$ is used to balance the unbalanced proportion of positive and negative samples, $(1-p)$ makes the model pay more attention to the samples with a small number of categories and difficult to classify. $\gamma$ regulates the rate at which the weight of simple samples is reduced.  
+
+[1] Tsung-Yi Lin, Priya Goyal, Ross Girshick, Kaiming He, and Piotr Dollár. 2017. Focal loss for dense object detection. In Proceedings of the IEEE international conference on computer vision. 2980–2988.
+
+### cross-entropy loss 
+When the balanced factor $\alpha _{t} = 1$, $\gamma = 0$, focal loss converted to standard cross-entropy loss.
 
 
 
